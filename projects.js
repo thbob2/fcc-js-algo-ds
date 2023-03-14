@@ -120,4 +120,5 @@ const rot13 = (str) => {
 module.exports = {
 	palindrome,
 	convertToRoman,
+	rot13,
 };
