@@ -4,8 +4,17 @@
   "description": "Free Code Camp certification projects",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start" :"node index.js"
+    
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Chouaib Boubekeur",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thbob2/fcc-js-algo-ds.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thbob2/fcc-js-algo-ds/issues"
+  },
+  "homepage": "https://github.com/thbob2/fcc-js-algo-ds#readme"
 }
