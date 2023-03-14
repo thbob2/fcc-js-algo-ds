@@ -137,11 +137,24 @@ const rot13 = (str) => {
 */
 
 const telephoneCheck = (str) => {
-	return true;
+	//Regular expressions to check for the possible correct format
+	const validator1 = /^(1?\s?\(?[0-9]{3}\)?\s?[0-9]{3}\s?[0-9]{4})$/;
+	const validator2 = /^(1?\s?\({1}[0-9]{3}\){1}\s?[0-9]{3}\-?\s?[0-9]{4})$/;
+	const validator3 = /^(1?\s?[0-9]{3}\-?\s?[0-9]{3}\-?\s?[0-9]{4})$/;
+	if (validator1.test(str)) {
+		return true;
+	} else if (validator2.test(str)) {
+		return true;
+	} else if (validator3.test(str)) {
+		return true;
+	} else {
+		return false;
+	}
 };
 
 module.exports = {
 	palindrome,
 	convertToRoman,
 	rot13,
+	telephoneCheck,
 };
