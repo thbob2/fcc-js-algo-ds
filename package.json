@@ -1,0 +1,11 @@
+{
+  "name": "fcc-js-algo",
+  "version": "1.0.0",
+  "description": "Free Code Camp certification projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
