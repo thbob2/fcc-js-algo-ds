@@ -162,9 +162,74 @@ const telephoneCheck = (str) => {
 	}
 };
 
+/*
+???..######.....###.....######..##.....##....########..########..######...####..######..########.########.########.
+???.##....##...##.##...##....##.##.....##....##.....##.##.......##....##...##..##....##....##....##.......##.....##
+???.##........##...##..##.......##.....##....##.....##.##.......##.........##..##..........##....##.......##.....##
+???.##.......##.....##..######..#########....########..######...##...####..##...######.....##....######...########.
+???.##.......#########.......##.##.....##....##...##...##.......##....##...##........##....##....##.......##...##..
+???.##....##.##.....##.##....##.##.....##....##....##..##.......##....##...##..##....##....##....##.......##....##.
+???..######..##.....##..######..##.....##....##.....##.########..######...####..######.....##....########.##.....##
+*/
+
+const checkCashRegister = (price, cash, cid) => {
+	const coins = [
+		{ cUnit: 'ONE HUNDRED', amount: 100 },
+		{ cUnit: 'TWENTY', amount: 20 },
+		{ cUnit: 'TEN', amount: 10 },
+		{ cUnit: 'FIVE', amount: 5 },
+		{ cUnit: 'ONE', amount: 1 },
+		{ cUnit: 'QUARTER', amount: 0.25 },
+		{ cUnit: 'DIME', amount: 0.1 },
+		{ cUnit: 'NICKEL', amount: 0.05 },
+		{ cUnit: 'PENNY', amount: 0.01 },
+	];
+
+	let ticket = { status: null, change: [] };
+	let change = cash - price;
+	let register = cid.reduce(
+		(acu, curr) => {
+			acu.total += curr[1];
+			acu[curr[0]] = curr[1];
+			return acu;
+		},
+		{ total: 0 }
+	);
+	if (register.total === change) {
+		ticket.status = 'CLOSED';
+		ticket.change = cid;
+		return ticket;
+	}
+	if (register.total < change) {
+		ticket.status = 'INSUFFICIENT_FUNDS';
+		return ticket;
+	}
+	var change_arr = coins.reduce((acu, curr) => {
+		var value = 0;
+		while (register[curr.cUnit] > 0 && change >= curr.amount) {
+			change -= curr.amount;
+			register[curr.cUnit] -= curr.amount;
+			value += curr.amount;
+			change = Math.round(change * 100) / 100;
+		}
+		if (value > 0) {
+			acu.push([curr.cUnit, value]);
+		}
+		return acu;
+	}, []);
+	if (change_arr.length < 1 || change > 0) {
+		ticket.status = 'INSUFFICIENT_FUNDS';
+		return ticket;
+	}
+	ticket.status = 'OPEN';
+	ticket.change = change_arr;
+	return ticket;
+};
+
 module.exports = {
 	palindrome,
 	convertToRoman,
 	rot13,
 	telephoneCheck,
+	checkCashRegister,
 };
